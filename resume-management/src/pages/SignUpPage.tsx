@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, TextField, Button, Typography, Link } from "@material-ui/core";
 
-const LogInPage = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [confirmedPasswordError, setConfirmedPasswordError] = useState("");
 
   const handleLogin = () => {
     setUsernameError("");
@@ -18,12 +20,19 @@ const LogInPage = () => {
     if (!password) {
       setPasswordError("Password is required");
     }
+    if (!confirmedPassword) {
+      setConfirmedPasswordError("Password is required");
+    }
     if (username && password) {
-      //submit the form
-      alert("sucess");
+      if (password !== confirmedPassword) {
+        setConfirmedPasswordError("Password doesn't match");
+      } else {
+        //submit the form
+        alert("sucess sign up");
+        navigate("/");
+      }
     }
   };
-
   return (
     <Grid
       container
@@ -32,7 +41,7 @@ const LogInPage = () => {
       alignItems="center"
       alignContent="center"
     >
-      <h1>Resume Manager</h1>
+      <h1>Sign up</h1>
       <Grid item xs={10} sm={6} md={4}>
         <TextField
           label="Username"
@@ -46,7 +55,7 @@ const LogInPage = () => {
           helperText={usernameError}
         />
         <TextField
-          label="Password"
+          label="Enter Password"
           type="password"
           variant="outlined"
           margin="normal"
@@ -56,6 +65,18 @@ const LogInPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           error={Boolean(passwordError)}
           helperText={passwordError}
+        />
+        <TextField
+          label="Confirm Password"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          required
+          value={confirmedPassword}
+          onChange={(e) => setConfirmedPassword(e.target.value)}
+          error={Boolean(confirmedPasswordError)}
+          helperText={confirmedPasswordError}
         />
         <Grid
           container
@@ -71,14 +92,14 @@ const LogInPage = () => {
             fullWidth
             onClick={() => handleLogin()}
           >
-            Login
+            Register
           </Button>
         </Grid>
         <br />
         <Typography>
-          No account ? Please {""}
-          <Link variant="body2" onClick={() => navigate("./signup")}>
-            Sign Up
+          Already have an account ? Please {""}
+          <Link variant="body2" onClick={() => navigate("/")}>
+            Login
           </Link>
           {""} here
         </Typography>
@@ -87,4 +108,4 @@ const LogInPage = () => {
   );
 };
 
-export default LogInPage;
+export default SignUpPage;
