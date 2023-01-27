@@ -21,6 +21,7 @@ const LogInPage = () => {
     if (username && password) {
       //submit the form
       alert("sucess");
+      navigate("/home");
     }
   };
 
