@@ -1,0 +1,5 @@
+export enum APP_DATA_ACTIONS {
+    UPDATE = 'UPDATE',
+    UPDATE_GROUP = 'UPDATE_GROUP',
+    REMOVE = 'REMOVE'
+}

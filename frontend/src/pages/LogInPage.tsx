@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, TextField, Button, Typography, Link } from "@material-ui/core";
+import { useAppData } from "../libs/appData";
 
-const LogInPage = () => {
+const LogInPage: React.FC = () => {
+  const { appData, updateAppData } = useAppData();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +22,8 @@ const LogInPage = () => {
     }
     if (username && password) {
       //submit the form
-      alert("sucess");
+      updateAppData({ dataPath: "user", dataValue: "123" });
+
       navigate("/home");
     }
   };
