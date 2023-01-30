@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, TextField, Button, Typography, Link } from "@material-ui/core";
+import { useAppData } from "../libs/appData/index";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const SignUpPage = () => {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmedPasswordError, setConfirmedPasswordError] = useState("");
+
+  const { updateAppData } = useAppData();
 
   const handleLogin = () => {
     setUsernameError("");
@@ -27,8 +30,14 @@ const SignUpPage = () => {
       if (password !== confirmedPassword) {
         setConfirmedPasswordError("Password doesn't match");
       } else {
-        //submit the form
-        alert("sucess sign up");
+        updateAppData({
+          dataPath: "registerUser",
+          dataValue: {
+            userName: username,
+            userPassword: password,
+          },
+        });
+        //call api to store the user
         navigate("/");
       }
     }

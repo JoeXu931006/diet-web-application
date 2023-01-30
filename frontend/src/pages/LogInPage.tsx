@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, TextField, Button, Typography, Link } from "@material-ui/core";
-import { useAppData } from "../libs/appData";
+import { useAppData } from "../libs/appData/index";
 
 const LogInPage: React.FC = () => {
-  const { appData, updateAppData } = useAppData();
+  const { appData, removeAppData } = useAppData();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(appData?.userName || "");
+  const [password, setPassword] = useState(appData?.userPassword || "");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -21,9 +21,8 @@ const LogInPage: React.FC = () => {
       setPasswordError("Password is required");
     }
     if (username && password) {
-      //submit the form
-      updateAppData({ dataPath: "user", dataValue: "123" });
-
+      removeAppData({ dataPath: "registerUser" });
+      //call the api to validate the user
       navigate("/home");
     }
   };
